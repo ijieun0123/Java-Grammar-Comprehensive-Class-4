@@ -1,135 +1,91 @@
-# 자바 문법 종합반 4 week 과제
+# Java Grammar Comprehensive Class 4
 
------
+## 소개
 
-## 계산기 예외 처리하기
+**Java Grammar Comprehensive Class 4** 프로젝트는 자바 문법 종합반 4주 차 과제로서, 이전 주차에 개발한 계산기 프로젝트에 예외 처리를 추가하여 안정성과 신뢰성을 향상시키는 것을 목표로 합니다. 이 프로젝트는 사용자 입력에 대한 유효성 검사와 연산 과정에서 발생할 수 있는 예외 상황을 처리합니다.
 
-----------------
+## 기능
 
-### 3주차에 완성한 계산기 프로젝트에 예외처리를 추가해봅시다.
-### 기존 프로젝트에 아래 파일을 반영해주세요.
+- **사용자 입력 유효성 검사**: 숫자 입력 시 정수 여부를 확인하고, 연산자 입력 시 유효한 연산자인지 검사합니다.
+- **예외 처리**: 0으로 나누기와 같은 산술 연산 예외를 처리하여 프로그램의 비정상 종료를 방지합니다.
+- **반복 계산 기능**: 사용자가 원할 경우 여러 번의 계산을 연속적으로 수행할 수 있습니다.
 
-### 변경됨 - Main.java (숙제 - 구현 2)
+## 설치 및 실행 방법
 
-    public class Main {
-        public static void main(String[] args) {
-            boolean calculateEnded = false;
-            // 구현 2.
-        }
-    }
+1. **저장소 클론**: 터미널 또는 명령 프롬프트에서 다음 명령어를 실행하여 저장소를 클론합니다.
 
-### 변경됨 - Calculator.java
+   ```bash
+   git clone https://github.com/ijieun0123/Java-Grammar-Comprehensive-Class-4.git
+   ```
 
-    public class Calculator {
-        private int firstNumber;
-        private int secondNumber;
-    
-        private AbstractOperation operation;
-    
-        public Calculator(AbstractOperation operation) {
-            this.operation = operation;
-        }
-    
-        public Calculator() {
-        }
+2. **프로젝트 디렉토리로 이동**:
 
-        public void setOperation(AbstractOperation operation) {
-            this.operation = operation;
-        }
-    
-        public void setFirstNumber(int firstNumber) {
-            this.firstNumber = firstNumber;
-        }
-    
-        public void setSecondNumber(int secondNumber) {
-            this.secondNumber = secondNumber;
-        }
+   ```bash
+   cd Java-Grammar-Comprehensive-Class-4
+   ```
 
-        public double calculate() {
-            double answer = 0;
-            answer = operation.operate(this.firstNumber, this.secondNumber);
-            return answer;
-        }
+3. **필요한 의존성 설치**: Gradle을 사용하여 의존성을 설치합니다.
 
-    }
+   ```bash
+   ./gradlew build
+   ```
 
-### 신규 1. BadInputException.java
+4. **애플리케이션 실행**:
 
-    public class BadInputException extends Exception {
-        public BadInputException(String type) {
-            super("잘못된 입력입니다! " + type + "을 입력해주세요!");
-        }
-    }
+   ```bash
+   ./gradlew run
+   ```
 
-### 신규 2. Parser.java (숙제 - 구현 1)
+   또는 생성된 JAR 파일을 직접 실행할 수 있습니다.
 
-    import java.util.regex.Pattern;
-    
-    public class Parser {
-        private static final String OPERATION_REG = "[+\\-*/]";
-        private static final String NUMBER_REG = "^[0-9]*$";
-    
-        private final Calculator calculator = new Calculator();
-    
-        public Parser parseFirstNum(String firstInput) {
-                    // 구현 1.
-    
-        }
-    
-        public Parser parseSecondNum(String secondInput) {
-                    // 구현 1.
-        }
-    
-        public Parser parseOperator(String operationInput) {
-           // 구현 1.
-        }
-    
-        public double executeCalculator() {
-            return calculator.calculate();
-        }
-    }
+   ```bash
+   java -jar build/libs/Java-Grammar-Comprehensive-Class-4.jar
+   ```
 
-### 신규 3. CalculatorApp.java
-    import java.util.Scanner;
-    
-    public class CalculatorApp {
+## 사용 방법
 
-        public static boolean start() throws Exception{
-            Parser parser = new Parser();
-            Scanner scanner = new Scanner(System.in);
-    
-            System.out.println("첫번째 숫자를 입력해주세요!");
-            String firstInput = scanner.nextLine();
-            parser.parseFirstNum(firstInput);
-    
-            System.out.println("연산자를 입력해주세요!");
-            String operator = scanner.nextLine();
-            parser.parseOperator(operator);
-    
-            System.out.println("두번째 숫자를 입력해주세요!");
-            String secondInput = scanner.nextLine();
-            parser.parseSecondNum(secondInput);
-    
-            System.out.println("연산 결과 : " + parser.executeCalculator());
-            return true;
-        }
+1. 프로그램을 실행하면 콘솔에 다음과 같은 메시지가 표시됩니다.
 
+   ```
+   첫 번째 숫자를 입력하세요:
+   ```
 
-    }
+2. 첫 번째 숫자를 입력한 후, 다음 메시지가 표시됩니다.
 
+   ```
+   연산자를 입력하세요 (+, -, *, /):
+   ```
 
-### 숙제 설명
+3. 연산자를 입력한 후, 다음 메시지가 표시됩니다.
 
-구현 1, 구현2로 주석 처리된 부분을 직접 구현해 주세요<br/>
-추가된 BadInputException은 우리가 이번 과제에서 사용할 예외입니다.<br/>
-추가된 CalculatorApp은 우리의 계산기를 실행시켜주는 클래스입니다.<br/>
-Parser는 유저의 입력을 받아서 우리가 지난주에 구현한 계산기의 로직으로 전환시켜주는 객체입니다.<br/>
-우리는 주로 Parser를 구현할 예정입니다.<br/>
-우리는 유저의 입력을 String으로만 받아야 합니다.<br/>
-입력받은 String을 숫자나 연산자로 변환하기 위해서 꼭! 예외 처리를 해야 합니다.<br/>
-해당 예외 처리를 하기 위해서는 Pattern.match() 메서드가 필요합니다. 해당 부분은 검색하면 알 수 있습니다.<br/>
-Pattern.match() 메서드를 사용하기 위한 정규식 표현은 코드 내에 제공되어 있습니다.<br/>
-예외는 이미 구현된 BadInputException 객체를 사용합니다.<br/>
-예외를 어디에 구현할지는 본인이 결정할 수 있습니다. <br/>
-어디가 더 좋을지 고민해 보고 좋은 위치에 구현하고 간단하게 주석으로 자기의 생각을 표현해 주세요
+   ```
+   두 번째 숫자를 입력하세요:
+   ```
+
+4. 두 번째 숫자를 입력하면 결과가 출력됩니다.
+
+   ```
+   결과: [계산 결과]
+   ```
+
+5. 계산을 계속 진행할지 묻는 메시지가 표시됩니다.
+
+   ```
+   계속 계산하시겠습니까? (예/아니오):
+   ```
+
+   '예'를 입력하면 새로운 계산을 시작하고, '아니오'를 입력하면 프로그램이 종료됩니다.
+
+## 클래스 구조
+
+- **Main**: 프로그램의 진입점으로, 사용자 입력을 처리하고 계산기를 제어합니다.
+- **Calculator**: 연산을 수행하는 메인 클래스입니다. 두 숫자와 연산자를 받아 결과를 반환합니다.
+- **AbstractOperation**: 연산의 추상 클래스로, 각 연산별로 상속하여 구현합니다.
+- **AddOperation, SubtractOperation, MultiplyOperation, DivideOperation**: 각각 더하기, 빼기, 곱하기, 나누기 연산을 수행하는 클래스입니다.
+
+## 예외 처리
+
+- **NumberFormatException**: 숫자 입력 시 정수가 아닌 값을 입력하면 예외를 발생시키고, 사용자에게 올바른 입력을 요청합니다.
+- **IllegalArgumentException**: 유효하지 않은 연산자를 입력하면 예외를 발생시키고, 사용자에게 올바른 연산자를 입력하도록 요청합니다.
+- **ArithmeticException**: 0으로 나누는 경우 예외를 발생시키고, 사용자에게 오류 메시지를 출력합니다.
 
